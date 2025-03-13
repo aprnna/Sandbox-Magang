@@ -1,54 +1,76 @@
     using System;
     using GameInput;
     using UnityEngine;
+    using UnityEngine.Serialization;
 
     public class BuildingPlacer : MonoBehaviour
     {
         public event Action ActiveBuildableChange;
-        [field:SerializeField]
-        public BuildableItem ActiveBuildable { get; private set; }
-
-        [SerializeField] private float _maxBuildingDistance = 3f;
         
-        [SerializeField] private ConstructionLayer _constructionLayer;
-        [SerializeField] private PreviewLayer _previewLayer;
+        [SerializeField] private BuildableItem _activeBuildable;
+        public BuildableItem ActiveBuildable => _activeBuildable;
+
+        [SerializeField] private ConstructionTilemap constructionTilemap;
+        [SerializeField] private PreviewTilemap previewTilemap;
         [SerializeField] private MouseUser _mouseUser;
+        private Vector2 _mousePos;
 
         private void Update()
         {
-            if (_constructionLayer == null)
+            _mousePos = _mouseUser.MouseInWorldPosition;
+            if (constructionTilemap == null)
             {
-                _previewLayer.ClearPreview();
+                previewTilemap.ClearPreview();
                 return;
             }
-            Vector2 mousePos = _mouseUser.MouseInWorldPosition;
-            if (ActiveBuildable == null) return;
-            if (_mouseUser.IsMouseButtonPressed(MouseButton.Right))
+            
+            if (_activeBuildable != null)
             {
-                _constructionLayer.Destroy(mousePos);
-            }
-            _previewLayer.ShowPreview(
-                ActiveBuildable, mousePos,
-                _constructionLayer.IsEmpty(mousePos) 
-                && _constructionLayer.IsValidConstructionArea(mousePos) 
+                previewTilemap.ShowPreview(
+                    ActiveBuildable, _mousePos,
+                    constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Dimenstion) 
                 );
-            if (
-                _mouseUser.IsMouseButtonPressed(MouseButton.Left) && 
-                _constructionLayer.IsEmpty(mousePos) 
-                )
-            {
-                _constructionLayer.Build(mousePos, ActiveBuildable);
             }
-        }
-        
-        private bool IsMouseWithinBuildableRange()
-        {
-            return Vector3.Distance(_mouseUser.MouseInWorldPosition, transform.position) <= _maxBuildingDistance;
         }
 
-        public void setActiveBuildable(BuildableItem item)
+        private void OnEnable()
         {
-            ActiveBuildable = item;
+            _mouseUser.RightMouseClicked += OnRightMouseClicked;
+            _mouseUser.LeftMouseClicked += OnLeftMouseClicked;
+            _mouseUser.RotationPerformed += OnRotationPerformed;
+        }
+
+        private void OnDisable()
+        {
+            _mouseUser.RightMouseClicked -= OnRightMouseClicked;
+            _mouseUser.LeftMouseClicked -= OnLeftMouseClicked;
+            _mouseUser.RotationPerformed -= OnRotationPerformed;
+        }
+    
+        public void OnRightMouseClicked()
+        {
+            if(ActiveBuildable == null) return;
+            constructionTilemap.Destroy(_mousePos);
+        }
+
+        public void OnLeftMouseClicked()
+        {
+            if(ActiveBuildable == null) return;
+            if (constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Dimenstion))
+            {
+                constructionTilemap.Build(_mousePos, ActiveBuildable);
+            }
+        }
+
+        public void OnRotationPerformed()
+        {
+            if (_activeBuildable == null) return;
+            _activeBuildable.Rotate();
+        }
+        
+        public void SetActiveBuildable(BuildableItem item)
+        {
+            _activeBuildable = item;
             ActiveBuildableChange?.Invoke();
         }
         

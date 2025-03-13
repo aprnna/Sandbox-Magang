@@ -12,6 +12,11 @@ public class UI_ActiveBuildableItem :MonoBehaviour
         _buildingPlacer.ActiveBuildableChange += OnActiveBuildableChanged;
     }
 
+    private void OnDisable()
+    {
+        _buildingPlacer.ActiveBuildableChange -= OnActiveBuildableChanged;
+    }
+
     private void Start()
     {
         OnActiveBuildableChanged();

@@ -73,6 +73,15 @@ namespace GameInput
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotationObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""0983bc7d-76f6-431d-9bda-4a6ebf8f10c7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -128,6 +137,17 @@ namespace GameInput
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""PreviousItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6e65e44-399a-4deb-bce9-5cebe54fc62b"",
+                    ""path"": ""<Keyboard>/#(R)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotationObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -215,6 +235,7 @@ namespace GameInput
             m_Game_CancelAction = m_Game.FindAction("CancelAction", throwIfNotFound: true);
             m_Game_NextItem = m_Game.FindAction("NextItem", throwIfNotFound: true);
             m_Game_PreviousItem = m_Game.FindAction("PreviousItem", throwIfNotFound: true);
+            m_Game_RotationObject = m_Game.FindAction("RotationObject", throwIfNotFound: true);
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
@@ -290,6 +311,7 @@ namespace GameInput
         private readonly InputAction m_Game_CancelAction;
         private readonly InputAction m_Game_NextItem;
         private readonly InputAction m_Game_PreviousItem;
+        private readonly InputAction m_Game_RotationObject;
         public struct GameActions
         {
             private @InputActions m_Wrapper;
@@ -299,6 +321,7 @@ namespace GameInput
             public InputAction @CancelAction => m_Wrapper.m_Game_CancelAction;
             public InputAction @NextItem => m_Wrapper.m_Game_NextItem;
             public InputAction @PreviousItem => m_Wrapper.m_Game_PreviousItem;
+            public InputAction @RotationObject => m_Wrapper.m_Game_RotationObject;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -323,6 +346,9 @@ namespace GameInput
                 @PreviousItem.started += instance.OnPreviousItem;
                 @PreviousItem.performed += instance.OnPreviousItem;
                 @PreviousItem.canceled += instance.OnPreviousItem;
+                @RotationObject.started += instance.OnRotationObject;
+                @RotationObject.performed += instance.OnRotationObject;
+                @RotationObject.canceled += instance.OnRotationObject;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -342,6 +368,9 @@ namespace GameInput
                 @PreviousItem.started -= instance.OnPreviousItem;
                 @PreviousItem.performed -= instance.OnPreviousItem;
                 @PreviousItem.canceled -= instance.OnPreviousItem;
+                @RotationObject.started -= instance.OnRotationObject;
+                @RotationObject.performed -= instance.OnRotationObject;
+                @RotationObject.canceled -= instance.OnRotationObject;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -412,6 +441,7 @@ namespace GameInput
             void OnCancelAction(InputAction.CallbackContext context);
             void OnNextItem(InputAction.CallbackContext context);
             void OnPreviousItem(InputAction.CallbackContext context);
+            void OnRotationObject(InputAction.CallbackContext context);
         }
         public interface IPlayerActions
         {

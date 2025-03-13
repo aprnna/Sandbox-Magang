@@ -17,6 +17,11 @@ namespace BuildingSystem
             InputActions.Instance.Game.NextItem.performed += OnNextItemPerformed;
         }
 
+        private void OnDisable()
+        {
+            InputActions.Instance.Game.NextItem.performed -= OnNextItemPerformed;
+        }
+
         private void OnNextItemPerformed(InputAction.CallbackContext ctx)
         {
             NextItem();
@@ -25,7 +30,7 @@ namespace BuildingSystem
         private void NextItem()
         {
             _activeBuildableIndex = (_activeBuildableIndex + 1) % _buildableItems.Count;
-            _buildingPlacer.setActiveBuildable(_buildableItems[_activeBuildableIndex]);
+            _buildingPlacer.SetActiveBuildable(_buildableItems[_activeBuildableIndex]);
         }
     }
 }

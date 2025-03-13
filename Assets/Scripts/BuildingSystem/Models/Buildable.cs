@@ -1,25 +1,27 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[SerializeField]
 public class Buildable
 {
-    [field:SerializeField]
-    public Tilemap ParentTilemap { get; private set; }
-    [field:SerializeField]
-    public BuildableItem BuildableType { get; private set; }
-    [field:SerializeField]
-    public GameObject GameObject { get; private set; }
-    [field:SerializeField]
-    public Vector3Int Coordinates { get; private set; }
+    [SerializeField] private Tilemap _parentTilemap;
+    [SerializeField] private BuildableItem _buildableType;
+    [SerializeField] private GameObject _gameObject;
+    [SerializeField] private Vector3Int _coordinates;
+    [SerializeField] private List<Vector3Int> _occupiedTiles;
 
-    public Buildable(BuildableItem type, Vector3Int coords, Tilemap tilemap, GameObject gameObject = null)
+    public Tilemap ParentTilemap => _parentTilemap;
+    public BuildableItem BuildableType => _buildableType;
+    public GameObject GameObject => _gameObject;
+    public Vector3Int Coordinates => _coordinates;
+    public List<Vector3Int> OccupiedTiles => _occupiedTiles;
+    public Buildable(BuildableItem type, Vector3Int coords, Tilemap tilemap, List<Vector3Int> occupiedTiles, GameObject gameObject = null)
     {
-        ParentTilemap = tilemap;
-        BuildableType = type;
-        Coordinates = coords;
-        GameObject = gameObject;
-
+        _parentTilemap = tilemap;
+        _buildableType = type;
+        _coordinates = coords;
+        _gameObject = gameObject;
+        _occupiedTiles = occupiedTiles;
     }
 
     public void Destroy()
