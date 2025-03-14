@@ -38,8 +38,9 @@ public class ConstructionTilemap : TilemapLayer
                                      + item.TileOffset
                                      - new Vector3(0,size.y/2f,0);
             itemObject = Instantiate(item.GameObject, position, Quaternion.identity);
-            var newScale = item.GetNewScaleGameobject(cellSize);
-            itemObject.transform.localScale = new Vector3(newScale.X, newScale.Y, 1);
+            itemObject.GetComponent<SpriteRenderer>().sprite = item.PreviewSprite;
+            // var newScale = item.GetNewScaleGameobject(cellSize);
+            // itemObject.transform.localScale = new Vector3(newScale.X, newScale.Y, 1);
         }
         
         var buildable = new Buildable(item, baseCoords, _tilemap,  occupiedTiles, itemObject);

@@ -14,15 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Stone Bench
   _tile: {fileID: 0}
-  _gameObject: {fileID: 7947911505737750455, guid: 8fd7cba4384381e4aad6dc90158fc9d5, type: 3}
+  _gameObject: {fileID: 7947911505737750455, guid: d925f1d26bd95904886e446c97ec33c3, type: 3}
   _tileOffset: {x: 0, y: 0, z: 0}
-  _previewSprite: {fileID: 21300096, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  _uiIcon: {fileID: 21300096, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  _dimenstion: {x: 2, y: 1}
-  _rotation:
-  - Rotation: 2
-    Sprite: {fileID: 21300096, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  - Rotation: 0
-    Sprite: {fileID: 21300098, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  - Rotation: 0
-    Sprite: {fileID: 21300100, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  _previewSprite: {fileID: 21300100, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  _uiIcon: {fileID: 21300100, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  _dimenstion: {x: 1, y: 2}
+  _rotation: []

@@ -16,18 +16,10 @@ public class PreviewTilemap : TilemapLayer
         _previewRenderer.enabled = true;
         _previewRenderer.sprite = item.PreviewSprite;
         _previewRenderer.transform.position = previewPosition; 
-        
-        if (item.GameObject != null)
-        {
-            _previewRenderer.transform.position -= new Vector3(0, size.y / 2f, 0);
-            var newScale = item.GetNewScaleGameobject(cellSize);
-            _previewRenderer.transform.localScale = new Vector3(newScale.X, newScale.Y, 1); 
-        }
-        else
-        {
-            _previewRenderer.transform.localScale = new Vector3(size.x * cellSize.x, size.y * cellSize.y, 1);
-        }
-        
+        if (item.GameObject != null) _previewRenderer.transform.position -= new Vector3(0, size.y / 2f, 0);
+
+        // var newScale = item.GetNewScaleGameobject(cellSize);
+        // _previewRenderer.transform.localScale = new Vector3(newScale.X, newScale.Y, 1); 
         _previewRenderer.color = isValid ? new Color(0, 1, 0, 0.5f) : new Color(1, 0, 0, 0.5f);
     }
 

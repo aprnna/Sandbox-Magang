@@ -18,5 +18,5 @@ MonoBehaviour:
   _tileOffset: {x: 0, y: 0, z: 0}
   _previewSprite: {fileID: 1540693583, guid: 4d81290e8c8fb9b4390a9c23d4c0a505, type: 3}
   _uiIcon: {fileID: 1932460534, guid: 2a8725611cedecb4bbb7fe51fc026920, type: 3}
-  _dimenstion: {x: 2, y: 1}
+  _dimenstion: {x: 1, y: 1}
   _rotation: []

@@ -36,32 +36,26 @@ public class BuildableItem : ScriptableObject
         else if(Rotation.Count != 0)
         {
             _currentRotationIndex = (_currentRotationIndex + 1) % _rotation.Count;
-            _dimenstion = _currentRotationIndex % 2 == 0 ? _dimenstion : new Vector2Int(_dimenstion.y, _dimenstion.x);
-            GameObject.GetComponent<SpriteRenderer>().sprite = PreviewSprite;
+            _dimenstion = new Vector2Int(_dimenstion.y, _dimenstion.x);
         }
+        Debug.Log(_currentRotationIndex);
     }
 
     public (float X,float Y) GetNewScaleGameobject(Vector3 cellSize)
     {
-        float newScaleX;
-        float  newScaleY;
-        
+        float newScaleX, newScaleY;
         if (GameObject != null)
         {
             Vector2 spriteSize = PreviewSprite.bounds.size;
             float aspectRatio = spriteSize.y / spriteSize.x;
             
-            // Vector3 originalScale = GameObject.transform.localScale; 
-            // float aspectRatio = originalScale.y / originalScale.x;
-            
-            newScaleY = Dimenstion.y * cellSize.y;
-            newScaleX = newScaleY * aspectRatio;
+            newScaleX = (Dimenstion.x * cellSize.x) / spriteSize.x;
+            newScaleY = newScaleX * aspectRatio;
         }else
         {
             newScaleX = Dimenstion.x * cellSize.x;
             newScaleY = Dimenstion.y * cellSize.y;
         }
-
         return (newScaleX, newScaleY);
     }
 }
