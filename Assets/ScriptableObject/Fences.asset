@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804e3606c92c2c1409a6c582a40ab47b, type: 3}
   m_Name: Fences
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Fences
-  <Tile>k__BackingField: {fileID: 11400000, guid: ac65b7cddb749fa489b0dc64775227cd, type: 2}
-  <TileOffset>k__BackingField: {x: 0, y: 0, z: 0}
-  <PreviewSprite>k__BackingField: {fileID: -406005851440026372, guid: 2b6b3c50ed009b34780b6caca4b9c598, type: 3}
-  <UIIcon>k__BackingField: {fileID: -406005851440026372, guid: 2b6b3c50ed009b34780b6caca4b9c598, type: 3}
+  _name: 
+  _tile: {fileID: 0}
+  _tileOffset: {x: 0, y: 0, z: 0}
+  _previewSprite: {fileID: 0}
+  _gameObject: {fileID: 0}
+  _uiIcon: {fileID: 0}
+  _defaultDimenstion: {x: 1, y: 1}
+  OnlyRotateSprite: 0
+  _rotation: []
+  _currentRotationIndex: 0

@@ -17,7 +17,13 @@ public class PreviewTilemap : TilemapLayer
         _previewRenderer.sprite = item.PreviewSprite;
         _previewRenderer.transform.position = previewPosition; 
         if (item.GameObject != null) _previewRenderer.transform.position -= new Vector3(0, size.y / 2f, 0);
-
+        if (item.Rotation.Count > 0)
+        {
+            Vector3 newScale = _previewRenderer.transform.localScale;
+            if (item.CurrentRotation.Flip) newScale.x = -Mathf.Abs(newScale.x);
+            else newScale.x = Mathf.Abs(newScale.x);
+            _previewRenderer.transform.localScale = newScale;
+        }
         // var newScale = item.GetNewScaleGameobject(cellSize);
         // _previewRenderer.transform.localScale = new Vector3(newScale.X, newScale.Y, 1); 
         _previewRenderer.color = isValid ? new Color(0, 1, 0, 0.5f) : new Color(1, 0, 0, 0.5f);

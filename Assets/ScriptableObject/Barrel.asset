@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Barrel
   _tile: {fileID: 0}
-  _gameObject: {fileID: 2055102311959635369, guid: 413081fc53a78a043b38591243616398, type: 3}
   _tileOffset: {x: 0, y: 0, z: 0}
   _previewSprite: {fileID: 21300066, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  _gameObject: {fileID: 2055102311959635369, guid: 413081fc53a78a043b38591243616398, type: 3}
   _uiIcon: {fileID: 21300066, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  _dimenstion: {x: 1, y: 1}
+  _defaultDimenstion: {x: 1, y: 1}
+  OnlyRotateSprite: 0
   _rotation: []
+  _currentRotationIndex: 0

@@ -37,14 +37,16 @@
         {
             _mouseUser.RightMouseClicked += OnRightMouseClicked;
             _mouseUser.LeftMouseClicked += OnLeftMouseClicked;
-            _mouseUser.RotationPerformed += OnRotationPerformed;
+            _mouseUser.RotateLeftPerformed += OnRotationLeftPerformed;
+            _mouseUser.RotateRightPerformed += OnRotationRightPerformed;
         }
 
         private void OnDisable()
         {
             _mouseUser.RightMouseClicked -= OnRightMouseClicked;
             _mouseUser.LeftMouseClicked -= OnLeftMouseClicked;
-            _mouseUser.RotationPerformed -= OnRotationPerformed;
+            _mouseUser.RotateRightPerformed -= OnRotationRightPerformed;
+            _mouseUser.RotateLeftPerformed -= OnRotationLeftPerformed;
         }
     
         public void OnRightMouseClicked()
@@ -62,10 +64,16 @@
             }
         }
 
-        public void OnRotationPerformed()
+        public void OnRotationLeftPerformed()
         {
-            if (_activeBuildable == null) return;
-            _activeBuildable.Rotate();
+            if (ActiveBuildable == null) return;
+            ActiveBuildable.Rotate(RotationPerformed.Left);
+        }
+        
+        public void OnRotationRightPerformed()
+        {
+            if (ActiveBuildable == null) return;
+            ActiveBuildable.Rotate(RotationPerformed.Right);
         }
         
         public void SetActiveBuildable(BuildableItem item)

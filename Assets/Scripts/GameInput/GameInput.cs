@@ -75,9 +75,18 @@ namespace GameInput
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""RotationObject"",
+                    ""name"": ""RotateRightObject"",
                     ""type"": ""Button"",
                     ""id"": ""0983bc7d-76f6-431d-9bda-4a6ebf8f10c7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateLeftObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""03679a92-a844-4f14-ab44-f1c5aebb8013"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -121,7 +130,7 @@ namespace GameInput
                 {
                     ""name"": """",
                     ""id"": ""c5b08336-1827-4a28-87cc-b91f9cded4d3"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -143,11 +152,22 @@ namespace GameInput
                 {
                     ""name"": """",
                     ""id"": ""f6e65e44-399a-4deb-bce9-5cebe54fc62b"",
-                    ""path"": ""<Keyboard>/#(R)"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""RotationObject"",
+                    ""action"": ""RotateRightObject"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0248bc4b-3a7b-4c92-97fb-91c6a1b6e1df"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateLeftObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -235,7 +255,8 @@ namespace GameInput
             m_Game_CancelAction = m_Game.FindAction("CancelAction", throwIfNotFound: true);
             m_Game_NextItem = m_Game.FindAction("NextItem", throwIfNotFound: true);
             m_Game_PreviousItem = m_Game.FindAction("PreviousItem", throwIfNotFound: true);
-            m_Game_RotationObject = m_Game.FindAction("RotationObject", throwIfNotFound: true);
+            m_Game_RotateRightObject = m_Game.FindAction("RotateRightObject", throwIfNotFound: true);
+            m_Game_RotateLeftObject = m_Game.FindAction("RotateLeftObject", throwIfNotFound: true);
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
@@ -311,7 +332,8 @@ namespace GameInput
         private readonly InputAction m_Game_CancelAction;
         private readonly InputAction m_Game_NextItem;
         private readonly InputAction m_Game_PreviousItem;
-        private readonly InputAction m_Game_RotationObject;
+        private readonly InputAction m_Game_RotateRightObject;
+        private readonly InputAction m_Game_RotateLeftObject;
         public struct GameActions
         {
             private @InputActions m_Wrapper;
@@ -321,7 +343,8 @@ namespace GameInput
             public InputAction @CancelAction => m_Wrapper.m_Game_CancelAction;
             public InputAction @NextItem => m_Wrapper.m_Game_NextItem;
             public InputAction @PreviousItem => m_Wrapper.m_Game_PreviousItem;
-            public InputAction @RotationObject => m_Wrapper.m_Game_RotationObject;
+            public InputAction @RotateRightObject => m_Wrapper.m_Game_RotateRightObject;
+            public InputAction @RotateLeftObject => m_Wrapper.m_Game_RotateLeftObject;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -346,9 +369,12 @@ namespace GameInput
                 @PreviousItem.started += instance.OnPreviousItem;
                 @PreviousItem.performed += instance.OnPreviousItem;
                 @PreviousItem.canceled += instance.OnPreviousItem;
-                @RotationObject.started += instance.OnRotationObject;
-                @RotationObject.performed += instance.OnRotationObject;
-                @RotationObject.canceled += instance.OnRotationObject;
+                @RotateRightObject.started += instance.OnRotateRightObject;
+                @RotateRightObject.performed += instance.OnRotateRightObject;
+                @RotateRightObject.canceled += instance.OnRotateRightObject;
+                @RotateLeftObject.started += instance.OnRotateLeftObject;
+                @RotateLeftObject.performed += instance.OnRotateLeftObject;
+                @RotateLeftObject.canceled += instance.OnRotateLeftObject;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -368,9 +394,12 @@ namespace GameInput
                 @PreviousItem.started -= instance.OnPreviousItem;
                 @PreviousItem.performed -= instance.OnPreviousItem;
                 @PreviousItem.canceled -= instance.OnPreviousItem;
-                @RotationObject.started -= instance.OnRotationObject;
-                @RotationObject.performed -= instance.OnRotationObject;
-                @RotationObject.canceled -= instance.OnRotationObject;
+                @RotateRightObject.started -= instance.OnRotateRightObject;
+                @RotateRightObject.performed -= instance.OnRotateRightObject;
+                @RotateRightObject.canceled -= instance.OnRotateRightObject;
+                @RotateLeftObject.started -= instance.OnRotateLeftObject;
+                @RotateLeftObject.performed -= instance.OnRotateLeftObject;
+                @RotateLeftObject.canceled -= instance.OnRotateLeftObject;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -441,7 +470,8 @@ namespace GameInput
             void OnCancelAction(InputAction.CallbackContext context);
             void OnNextItem(InputAction.CallbackContext context);
             void OnPreviousItem(InputAction.CallbackContext context);
-            void OnRotationObject(InputAction.CallbackContext context);
+            void OnRotateRightObject(InputAction.CallbackContext context);
+            void OnRotateLeftObject(InputAction.CallbackContext context);
         }
         public interface IPlayerActions
         {

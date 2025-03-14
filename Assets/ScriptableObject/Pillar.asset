@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 804e3606c92c2c1409a6c582a40ab47b, type: 3}
+  m_Name: Pillar
+  m_EditorClassIdentifier: 
+  _name: Pillar
+  _tile: {fileID: 0}
+  _tileOffset: {x: 0, y: 0, z: 0}
+  _previewSprite: {fileID: 21300000, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
+  _gameObject: {fileID: 5628018141983903104, guid: e6ee907280b0a69489bdfed79fc864a0, type: 3}
+  _uiIcon: {fileID: 21300000, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
+  _defaultDimenstion: {x: 1, y: 2}
+  OnlyRotateSprite: 1
+  _rotation:
+  - Rotation: 2
+    PreviewSprite: {fileID: 21300000, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
+    Flip: 0
+  - Rotation: 0
+    PreviewSprite: {fileID: 21300004, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
+    Flip: 1
+  - Rotation: 1
+    PreviewSprite: {fileID: 21300002, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
+    Flip: 0
+  - Rotation: 0
+    PreviewSprite: {fileID: 21300004, guid: ec47f75fe8aff1644ac73998f4ad31b5, type: 3}
+    Flip: 0
+  _currentRotationIndex: 0

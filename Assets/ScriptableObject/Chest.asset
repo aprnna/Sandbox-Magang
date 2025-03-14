@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: Chest
   _tile: {fileID: 0}
-  _gameObject: {fileID: 2055102311959635369, guid: 99597c7b4aa47494fb2b6061505735da, type: 3}
   _tileOffset: {x: 0, y: 0, z: 0}
   _previewSprite: {fileID: 21300000, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
+  _gameObject: {fileID: 2055102311959635369, guid: 6654e4b6eadf3504dbd40cee0f32661f, type: 3}
   _uiIcon: {fileID: 21300000, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
-  _dimenstion: {x: 2, y: 2}
+  _defaultDimenstion: {x: 1, y: 1}
+  OnlyRotateSprite: 0
   _rotation: []
+  _currentRotationIndex: 0

@@ -11,7 +11,8 @@ namespace GameInput
         public event Action RightMouseClicked;
         public event Action LeftMouseClicked;
 
-        public event Action RotationPerformed;
+        public event Action RotateLeftPerformed;
+        public event Action RotateRightPerformed;
         public Vector2 MousePosition { get; private set; }
         public Vector2 MouseInWorldPosition => Camera.main.ScreenToWorldPoint(MousePosition);
 
@@ -21,7 +22,8 @@ namespace GameInput
             _inputActions.Game.MousePosition.performed += OnMousePositionPerformed;
             _inputActions.Game.PerformAction.performed += OnPerformActionPerformed;
             _inputActions.Game.CancelAction.performed += OnCancelActionPerformed;
-            _inputActions.Game.RotationObject.performed += OnRotationObjectPerformed;
+            _inputActions.Game.RotateRightObject.performed += OnRotationRightObjectPerformed;
+            _inputActions.Game.RotateLeftObject.performed += OnRotationLeftObjectPerformed;
         }
 
         private void OnDisable()
@@ -29,7 +31,8 @@ namespace GameInput
             _inputActions.Game.MousePosition.performed -= OnMousePositionPerformed;
             _inputActions.Game.PerformAction.performed -= OnPerformActionPerformed;
             _inputActions.Game.CancelAction.performed -= OnCancelActionPerformed;
-            _inputActions.Game.RotationObject.performed += OnRotationObjectPerformed;
+            _inputActions.Game.RotateRightObject.performed += OnRotationRightObjectPerformed;
+            _inputActions.Game.RotateLeftObject.performed += OnRotationLeftObjectPerformed;
         }
 
         private void OnMousePositionPerformed(InputAction.CallbackContext ctx)
@@ -48,11 +51,15 @@ namespace GameInput
             RightMouseClicked?.Invoke();
         }
 
-        private void OnRotationObjectPerformed(InputAction.CallbackContext ctx)
+        private void OnRotationLeftObjectPerformed(InputAction.CallbackContext ctx)
         {
-            RotationPerformed?.Invoke();
+            RotateLeftPerformed?.Invoke();
         }
-
+        private void OnRotationRightObjectPerformed(InputAction.CallbackContext ctx)
+        {
+            RotateRightPerformed?.Invoke();
+        }
+    
     }
 }
 

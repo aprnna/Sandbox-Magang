@@ -391,11 +391,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildableItems:
-  - {fileID: 11400000, guid: 92e353b350f6a464e9ffaf9fe1c24c1c, type: 2}
   - {fileID: 11400000, guid: 7e2b451de0f5edd428dacba06a75d51f, type: 2}
-  - {fileID: 11400000, guid: 6180eb92ccb986a4e996ff52ee51f0d4, type: 2}
   - {fileID: 11400000, guid: 85406c2d9440594419b1ecf90ce55c3c, type: 2}
-  - {fileID: 11400000, guid: 907b62fd15ec21145bfc8e557a6cc5a5, type: 2}
+  - {fileID: 11400000, guid: 92e353b350f6a464e9ffaf9fe1c24c1c, type: 2}
+  - {fileID: 11400000, guid: da48ff49622a1a9458e18a8f161f68ca, type: 2}
   _buildingPlacer: {fileID: 585344562}
 --- !u!114 &585344564
 MonoBehaviour:

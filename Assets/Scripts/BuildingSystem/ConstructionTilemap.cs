@@ -39,6 +39,14 @@ public class ConstructionTilemap : TilemapLayer
                                      - new Vector3(0,size.y/2f,0);
             itemObject = Instantiate(item.GameObject, position, Quaternion.identity);
             itemObject.GetComponent<SpriteRenderer>().sprite = item.PreviewSprite;
+            if (item.Rotation.Count > 0)
+            {
+                Vector3 newScale = itemObject.transform.localScale;
+                if (item.CurrentRotation.Flip) newScale.x = -Mathf.Abs(newScale.x);
+                else newScale.x = Mathf.Abs(newScale.x);
+                itemObject.transform.localScale = newScale;
+            }
+      
             // var newScale = item.GetNewScaleGameobject(cellSize);
             // itemObject.transform.localScale = new Vector3(newScale.X, newScale.Y, 1);
         }
