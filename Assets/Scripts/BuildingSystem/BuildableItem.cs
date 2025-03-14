@@ -58,27 +58,14 @@ public class BuildableItem : ScriptableObject
     public bool CanChangeDimension()
     {
         if (OnlyRotateSprite) return false;
-        Debug.Log(_previousRotation+" "+CurrentRotation.Rotation);
-        bool wasVertical = _previousRotation == RotationType.up || _previousRotation == RotationType.down;
-        bool isCurrentSide = CurrentRotation.Rotation == RotationType.side;
-        Debug.Log(wasVertical+" "+isCurrentSide+""+!OnlyRotateSprite);
-        bool y = wasVertical && isCurrentSide;
-        bool wasHorizontal = _previousRotation == RotationType.side;
-        bool isCurrentVertical = CurrentRotation.Rotation != RotationType.side;
-        bool x = wasHorizontal && isCurrentVertical;
-        return x || y;
-        
-        return wasVertical && isCurrentSide && !OnlyRotateSprite;
-        
-        // // 2. Jika OnlyRotateSprite = false, dimensi hanya boleh berubah saat rotasi berubah tipe (vertical <-> horizontal)
-        //
-        //     bool wasVertical = _previousRotation == RotationType.up || _previousRotation == RotationType.down;
-        //     bool isCurrentVertical = CurrentRotation.Rotation == RotationType.up || CurrentRotation.Rotation == RotationType.down;
-        //     return wasVertical != isCurrentVertical; // true hanya jika berbeda tipe rotasi
-        //
-        //     bool wasHorizontal = _previousRotation == RotationType.side;
-        //     bool isCurrentVertical = CurrentRotation.Rotation == RotationType.up || CurrentRotation.Rotation == RotationType.down;
-        //     return wasHorizontal && isCurrentVertical;
+
+        bool wasVertical = _previousRotation is RotationType.up or RotationType.down;
+        bool isNowSide = CurrentRotation.Rotation == RotationType.side;
+
+        bool wasSide = _previousRotation == RotationType.side;
+        bool isNowVertical = !isNowSide;
+
+        return (wasVertical && isNowSide) || (wasSide && isNowVertical);
     }
     
     public (float X,float Y) GetNewScaleGameobject(Vector3 cellSize)
