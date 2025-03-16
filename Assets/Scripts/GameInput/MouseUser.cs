@@ -53,10 +53,12 @@ namespace GameInput
 
         private void OnRotationLeftObjectPerformed(InputAction.CallbackContext ctx)
         {
+            Debug.Log("Kiri");
             RotateLeftPerformed?.Invoke();
         }
         private void OnRotationRightObjectPerformed(InputAction.CallbackContext ctx)
         {
+            Debug.Log("Kanan");
             RotateRightPerformed?.Invoke();
         }
     

@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 804e3606c92c2c1409a6c582a40ab47b, type: 3}
   m_Name: GrassPath2
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: StonePath
-  <Tile>k__BackingField: {fileID: 11400000, guid: 24c1354c9a4f0aa46ad381509f5860e0, type: 2}
-  <TileOffset>k__BackingField: {x: 0, y: 0, z: 0}
-  <PreviewSprite>k__BackingField: {fileID: 926048104, guid: ee8fa21901467e147b4d90f3c416de10, type: 3}
-  <UIIcon>k__BackingField: {fileID: -209286294, guid: ee8fa21901467e147b4d90f3c416de10, type: 3}
+  _name: 
+  _type: 2
+  _tile: {fileID: 0}
+  _tileOffset: {x: 0, y: 0, z: 0}
+  _previewSprite: {fileID: 0}
+  _gameObject: {fileID: 0}
+  _uiIcon: {fileID: 0}
+  _defaultDimenstion: {x: 0, y: 0}
+  OnlyRotateSprite: 0
+  _rotation: []

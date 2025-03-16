@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 public class BuildableItem : ScriptableObject
 {
     [SerializeField] private string _name;
+    [SerializeField] private ObjectType _type;
     [SerializeField] private TileBase _tile;
     [SerializeField] private Vector3 _tileOffset;
     [SerializeField] private Sprite _previewSprite;
@@ -16,24 +17,23 @@ public class BuildableItem : ScriptableObject
     [SerializeField] private Vector2Int _defaultDimenstion;
     [SerializeField] private bool OnlyRotateSprite;
     [SerializeField] private List<RotationItem> _rotation;
+    private int _currentRotationIndex = 0;
+    private Vector2Int _dimenstion;
+    private RotationType _previousRotation;
+    
     public string Name => _name;
     public TileBase Tile => _tile;
     public Vector3 TileOffset => _tileOffset;
     public Sprite UIIcon => _uiIcon;
     public GameObject GameObject => _gameObject;
     public List<RotationItem> Rotation => _rotation;
-
-    private Vector2Int _dimenstion;
     public Vector2Int Dimenstion => _dimenstion;
     public Vector2Int DefaultDimenstion => _defaultDimenstion;
     public Sprite PreviewSprite =>  Rotation.Count > 0 ? CurrentRotation.PreviewSprite : _previewSprite;
     
-    public int _currentRotationIndex = 0;
     public RotationItem CurrentRotation => _rotation[_currentRotationIndex];
-    
 
-    private RotationType _previousRotation;
-
+    public ObjectType Type => _type;
     private void OnEnable()
     {
         _currentRotationIndex = 0;
@@ -42,16 +42,16 @@ public class BuildableItem : ScriptableObject
 
     public void Rotate(RotationPerformed type)
     {
-        if(Rotation.Count != 0)
+        if(Rotation.Count > 0)
         {
             _previousRotation = CurrentRotation.Rotation;
-            if(type == RotationPerformed.Left) _currentRotationIndex = (_currentRotationIndex + 1) % Rotation.Count;
-            else if(type == RotationPerformed.Right) _currentRotationIndex = (_currentRotationIndex - 1 + Rotation.Count) % Rotation.Count;
-        }
-
-        if (CanChangeDimension())
-        {
-            _dimenstion = new Vector2Int(_dimenstion.y, _dimenstion.x);
+            if(type == RotationPerformed.Left) _currentRotationIndex = (_currentRotationIndex - 1 + Rotation.Count) % Rotation.Count;
+            else if(type == RotationPerformed.Right) _currentRotationIndex = (_currentRotationIndex + 1) % Rotation.Count;
+            if (CanChangeDimension())
+            {
+                _dimenstion = new Vector2Int(_dimenstion.y, _dimenstion.x);
+            }
+            
         }
     }
 
@@ -106,4 +106,11 @@ public enum RotationType
 public enum RotationPerformed
 {
     Left, Right
+}
+
+public enum ObjectType
+{
+    Cosmetic,
+    Functional,
+    Tail
 }

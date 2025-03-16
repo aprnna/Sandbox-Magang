@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StoneBench
   m_EditorClassIdentifier: 
   _name: Stone Bench
+  _type: 1
   _tile: {fileID: 0}
   _tileOffset: {x: 0, y: 0, z: 0}
   _previewSprite: {fileID: 21300096, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
@@ -30,4 +31,3 @@ MonoBehaviour:
   - Rotation: 0
     PreviewSprite: {fileID: 21300098, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
     Flip: 0
-  _currentRotationIndex: 0

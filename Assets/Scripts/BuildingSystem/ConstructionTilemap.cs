@@ -4,16 +4,20 @@ using UnityEngine.Tilemaps;
 
 public class ConstructionTilemap : TilemapLayer
 {
-    private Dictionary<Vector3Int, Buildable> _buildables = new(); 
+    [SerializeField] private Transform _cosmeticGameObject;
+    [SerializeField] private Transform _functionalGameObject;
+    
+    private Dictionary<Vector3Int, Buildable> _buildablesTiles = new();
+    private Dictionary<Vector3Int, Buildable> _buildablesGameObject = new();
     
     public void Build(Vector3 worldCoords, BuildableItem item)
     {
         GameObject itemObject = null;
         Vector3Int baseCoords = _tilemap.WorldToCell(worldCoords);
         Vector2Int size = item.Dimenstion;
-        
-        if (!IsEmpty(worldCoords, size)) return;
-  
+      
+        if (!IsEmpty(worldCoords, item.Type, size)) return;
+
         List<Vector3Int> occupiedTiles = new List<Vector3Int>();
         
         for (int x = 0; x < size.x; x++)
@@ -22,11 +26,13 @@ public class ConstructionTilemap : TilemapLayer
             {
                 Vector3Int coords = baseCoords + new Vector3Int(x , y, 0);
                 occupiedTiles.Add(coords);
-                
-                var tileChangeData = new TileChangeData(
-                    coords, item.Tile, Color.white, Matrix4x4.Translate(item.TileOffset)
-                );
-                _tilemap.SetTile(tileChangeData, false);
+                if (item.Type == ObjectType.Tail)
+                {
+                    var tileChangeData = new TileChangeData(
+                        coords, item.Tile, Color.white, Matrix4x4.Translate(item.TileOffset)
+                    );
+                    _tilemap.SetTile(tileChangeData, false);
+                }
             }
         }
           
@@ -37,13 +43,13 @@ public class ConstructionTilemap : TilemapLayer
                                      + new Vector3(size.x/ 2f, size.y / 2f, 0) 
                                      + item.TileOffset
                                      - new Vector3(0,size.y/2f,0);
-            itemObject = Instantiate(item.GameObject, position, Quaternion.identity);
+            Transform parent= item.Type == ObjectType.Cosmetic ? _cosmeticGameObject : _functionalGameObject;
+            itemObject =  Instantiate(item.GameObject, position, Quaternion.identity, parent);
             itemObject.GetComponent<SpriteRenderer>().sprite = item.PreviewSprite;
             if (item.Rotation.Count > 0)
             {
                 Vector3 newScale = itemObject.transform.localScale;
-                if (item.CurrentRotation.Flip) newScale.x = -Mathf.Abs(newScale.x);
-                else newScale.x = Mathf.Abs(newScale.x);
+                newScale.x = item.CurrentRotation.Flip ?  -Mathf.Abs(newScale.x) : Mathf.Abs(newScale.x);
                 itemObject.transform.localScale = newScale;
             }
       
@@ -55,11 +61,12 @@ public class ConstructionTilemap : TilemapLayer
         
         foreach (var coords in occupiedTiles)
         {
-            _buildables.Add(coords, buildable);
+            if (item.Type == ObjectType.Tail) _buildablesTiles.Add(coords, buildable);
+            else _buildablesGameObject.Add(coords,buildable);
         }
     }
 
-    public bool IsEmpty(Vector3 worldCoords, Vector2Int size)
+    public bool IsEmpty(Vector3 worldCoords,ObjectType type,Vector2Int size)
     {
         Vector3Int baseCoords = _tilemap.WorldToCell(worldCoords);
         for (int x = 0; x < size.x; x++)
@@ -67,10 +74,10 @@ public class ConstructionTilemap : TilemapLayer
             for (int y = 0; y < size.y; y++)
             {
                 Vector3Int coords = baseCoords + new Vector3Int(x, y, 0);
-                if (_buildables.ContainsKey(coords) || _tilemap.GetTile(coords) != null)
-                {
-                    return false;
-                }
+                var occupied = type == ObjectType.Tail
+                    ? _buildablesTiles.ContainsKey(coords)
+                    : _buildablesGameObject.ContainsKey(coords);
+                if (occupied) return false;
             }
         }
         return true;
@@ -80,13 +87,13 @@ public class ConstructionTilemap : TilemapLayer
     {
         Vector3Int baseCoords = _tilemap.WorldToCell(worldCoords);
 
-        if (!_buildables.ContainsKey(baseCoords)) return;
+        if (!_buildablesTiles.ContainsKey(baseCoords)) return;
 
-        var buildable = _buildables[baseCoords];
+        var buildable = _buildablesTiles[baseCoords];
 
         foreach (var coords in buildable.OccupiedTiles)
         {
-            _buildables.Remove(coords);
+            _buildablesTiles.Remove(coords);
             _tilemap.SetTile(coords, null);
         }
 

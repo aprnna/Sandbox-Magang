@@ -1,7 +1,6 @@
     using System;
     using GameInput;
     using UnityEngine;
-    using UnityEngine.Serialization;
 
     public class BuildingPlacer : MonoBehaviour
     {
@@ -12,6 +11,7 @@
 
         [SerializeField] private ConstructionTilemap constructionTilemap;
         [SerializeField] private PreviewTilemap previewTilemap;
+        [SerializeField] private BuildingArea _buildingArea;
         [SerializeField] private MouseUser _mouseUser;
         private Vector2 _mousePos;
 
@@ -28,7 +28,8 @@
             {
                 previewTilemap.ShowPreview(
                     ActiveBuildable, _mousePos,
-                    constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Dimenstion) 
+                    constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Type,ActiveBuildable.Dimenstion) 
+                    && _buildingArea.IsAvailabelArea(_mousePos, ActiveBuildable)
                 );
             }
         }
@@ -58,7 +59,8 @@
         public void OnLeftMouseClicked()
         {
             if(ActiveBuildable == null) return;
-            if (constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Dimenstion))
+            if (constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Type,ActiveBuildable.Dimenstion)
+                && _buildingArea.IsAvailabelArea(_mousePos, ActiveBuildable))
             {
                 constructionTilemap.Build(_mousePos, ActiveBuildable);
             }

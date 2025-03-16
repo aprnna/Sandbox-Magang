@@ -20,8 +20,7 @@ public class PreviewTilemap : TilemapLayer
         if (item.Rotation.Count > 0)
         {
             Vector3 newScale = _previewRenderer.transform.localScale;
-            if (item.CurrentRotation.Flip) newScale.x = -Mathf.Abs(newScale.x);
-            else newScale.x = Mathf.Abs(newScale.x);
+            newScale.x = item.CurrentRotation.Flip ? -Mathf.Abs(newScale.x):Mathf.Abs(newScale.x);
             _previewRenderer.transform.localScale = newScale;
         }
         // var newScale = item.GetNewScaleGameobject(cellSize);
