@@ -86,20 +86,31 @@ public class ConstructionTilemap : TilemapLayer
     public void Destroy(Vector3 worldCoords)
     {
         Vector3Int baseCoords = _tilemap.WorldToCell(worldCoords);
+        bool hasTile = _buildablesTiles.TryGetValue(baseCoords, out Buildable buildableTile);
+        bool hasGameObject = _buildablesGameObject.TryGetValue(baseCoords, out Buildable buildableGameObject);
 
-        if (!_buildablesTiles.ContainsKey(baseCoords)) return;
+        if (!hasTile && !hasGameObject) return;
 
-        var buildable = _buildablesTiles[baseCoords];
-
-        foreach (var coords in buildable.OccupiedTiles)
+        if (hasTile)
         {
-            _buildablesTiles.Remove(coords);
-            _tilemap.SetTile(coords, null);
+            foreach (var coords in buildableTile.OccupiedTiles)
+            {
+                _buildablesTiles.Remove(coords);
+                _tilemap.SetTile(coords, null);
+            }
         }
 
-        if (buildable.GameObject != null)
+        if (hasGameObject)
         {
-            Destroy(buildable.GameObject);
+            foreach (var coords in buildableGameObject.OccupiedTiles)
+            {
+                _buildablesGameObject.Remove(coords);
+            }
+
+            if (buildableGameObject.GameObject != null)
+            {
+                Destroy(buildableGameObject.GameObject);
+            }
         }
     }
 
