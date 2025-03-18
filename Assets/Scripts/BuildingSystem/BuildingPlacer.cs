@@ -28,7 +28,7 @@
             {
                 previewTilemap.ShowPreview(
                     ActiveBuildable, _mousePos,
-                    constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Type,ActiveBuildable.Dimenstion) 
+                    constructionTilemap.IsEmpty(_mousePos, ActiveBuildable) 
                     && _buildingArea.IsAvailabelArea(_mousePos, ActiveBuildable)
                 );
             }
@@ -59,7 +59,7 @@
         public void OnLeftMouseClicked()
         {
             if(ActiveBuildable == null) return;
-            if (constructionTilemap.IsEmpty(_mousePos, ActiveBuildable.Type,ActiveBuildable.Dimenstion)
+            if (constructionTilemap.IsEmpty(_mousePos, ActiveBuildable)
                 && _buildingArea.IsAvailabelArea(_mousePos, ActiveBuildable))
             {
                 constructionTilemap.Build(_mousePos, ActiveBuildable);

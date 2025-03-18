@@ -10,4 +10,11 @@ public class TilemapLayer : MonoBehaviour
   {
     _tilemap = GetComponent<Tilemap>();
   }
+
+  protected void SetGameObjectRotation(GameObject itemObject, BuildableItem item)
+  {
+    Vector3 newScale = itemObject.transform.localScale;
+    newScale.x = item.CurrentRotation.Flip ? -Mathf.Abs(newScale.x) : Mathf.Abs(newScale.x);
+    itemObject.transform.localScale = newScale;
+  }
 }
